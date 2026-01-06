@@ -1,16 +1,147 @@
-# Proyecto – Análisis Semántico y Crisis de Sentido en la Generación Z
+# Proyecto de Análisis de Datos mediante RAG
 
-Este proyecto analiza textos relacionados con la Generación Z, algoritmos y crisis de sentido
-utilizando técnicas de *embeddings*, búsqueda semántica y visualización de datos.
-Se emplea un enfoque tipo RAG (Retrieval-Augmented Generation) para encontrar evidencias
-filosóficas en los datos.
+##  Introducción
+
+La presente investigación tiene como objetivo analizar, mediante un enfoque basado en **Retrieval-Augmented Generation (RAG)**, dos problemáticas filosóficas contemporáneas estrechamente vinculadas al contexto digital actual: la posible **crisis de sentido en la Generación Z** derivada de la hiperconectividad, y el **papel de los algoritmos digitales y la inteligencia artificial** en la construcción de la identidad y la autonomía.
+
+El estudio adopta un enfoque cualitativo apoyado por técnicas de **análisis semántico asistido por inteligencia artificial**, articulando evidencia textual con marcos filosóficos contemporáneos. Para ello, se implementó un sistema RAG ligero basado en **embeddings semánticos multilingües** y recuperación de evidencia mediante **similitud coseno**, permitiendo interpretar discursos digitales desde una perspectiva crítica.
 
 ---
 
-## Carga del dataset desde Excel
+##  Pregunta de Investigación
 
-Este bloque localiza automáticamente un archivo `.xlsx` en el entorno y lo carga en un DataFrame
-para su análisis posterior.
+**¿Cómo se manifiesta una posible crisis de sentido en la Generación Z y qué papel desempeñan los algoritmos digitales y la inteligencia artificial en la construcción de su identidad y autonomía en la era de la hiperconectividad?**
+
+---
+
+##  Hipótesis de Investigación
+
+- La Generación Z presenta indicios de una crisis de sentido, expresada mediante discursos digitales que reflejan vacío existencial y agotamiento emocional.
+- La hiperconectividad influye en la construcción de una identidad fragmentada y cambiante, coherente con la noción de *identidad líquida* de Bauman.
+- Los algoritmos de recomendación influyen indirectamente en gustos, hábitos y decisiones personales.
+- Predominan emociones negativas como ansiedad, cansancio y frustración en discursos relacionados con productividad y visibilidad digital.
+- La autonomía percibida es ambigua, al encontrarse mediada por sistemas algorítmicos.
+- Se observa un rechazo a los metarrelatos tradicionales, sustituidos por narrativas individuales y efímeras.
+- La cultura del rendimiento descrita por Byung-Chul Han se manifiesta en prácticas de autoexplotación digital.
+
+Estas hipótesis no buscan validación causal, sino **exploración interpretativa mediante análisis semántico asistido por un sistema RAG**.
+
+---
+
+##  Marco Teórico-Filosófico
+
+### Crisis de sentido en la Generación Z
+- **Sartre / Camus**: vacío existencial.
+- **Lyotard**: crisis de los metarrelatos.
+- **Bauman**: identidad líquida.
+- **Byung-Chul Han**: cultura del rendimiento y burnout.
+
+### Tecnología, IA y Autonomía
+- **Foucault**: vigilancia y control algorítmico.
+- **Heidegger**: la tecnología como forma de desocultamiento.
+- **Habermas**: debilitamiento del espacio público digital.
+
+---
+
+##  Metodología
+
+###  Construcción del Dataset
+
+Se creó un **dataset propio en formato Excel**, compuesto por textos relacionados con:
+
+- Generación Z y crisis de sentido  
+- Identidad digital  
+- Autonomía y algoritmos  
+- Cultura del rendimiento y burnout  
+
+Cada registro contiene:
+- Texto
+- Tema filosófico
+- Sentimiento (positivo, neutral, negativo)
+- Métricas de impacto (likes y reposts)
+
+---
+
+###  Limpieza y Preparación
+
+- Eliminación de valores nulos
+- Normalización básica de texto
+- Conservación del contenido emocional y discursivo
+
+---
+
+###  Generación de Embeddings
+
+Los textos fueron transformados en embeddings utilizando el modelo:
+
+**`paraphrase-multilingual-MiniLM-L12-v2`**
+
+Este modelo permite capturar relaciones semánticas profundas entre conceptos filosóficos y emociones.
+
+---
+
+###  Recuperación de Evidencia (Vector Search)
+
+- Los embeddings se almacenan en memoria dentro de un DataFrame
+- La búsqueda se realiza mediante **similitud coseno**
+- Se recuperan los textos más relevantes para cada consulta
+
+Este proceso cumple con el principio fundamental del enfoque **RAG**: *recuperar evidencia antes de interpretar*.
+
+---
+
+##  Pipeline del Sistema RAG
+
+1. Formulación de la consulta
+2. Generación del embedding de la consulta
+3. Cálculo de similitud coseno
+4. Recuperación de textos relevantes
+5. Interpretación filosófica de la evidencia
+
+---
+
+## Resultados del Análisis
+
+### Influencia de los algoritmos en la autonomía
+Los discursos reflejan una pérdida de control percibida, con decisiones mediadas por recomendaciones algorítmicas.
+
+### Cultura del rendimiento y burnout
+Predominan expresiones de cansancio, autoexigencia y agotamiento emocional.
+
+### Identidad líquida
+Se identifican patrones de cambio constante en valores, intereses y autoimagen.
+
+---
+
+##  Análisis Exploratorio de Datos
+
+- Gráfica de distribución de sentimientos por eje temático
+- Nube de palabras centrada en la crisis de sentido
+
+Estas visualizaciones refuerzan empíricamente los hallazgos del sistema RAG.
+
+---
+
+##  Discusión Filosófica
+
+Los resultados reflejan una manifestación contemporánea del vacío existencial descrito por Sartre y Camus, intensificado por entornos digitales. La identidad líquida de Bauman y la cultura del rendimiento de Byung-Chul Han se ven reforzadas por discursos de agotamiento y autoexplotación. Desde Foucault, se evidencia una forma sutil de control algorítmico que condiciona la autonomía juvenil.
+
+---
+
+##  Conclusiones
+
+El sistema RAG implementado sugiere la existencia de indicios consistentes de una crisis de sentido en la Generación Z. Los discursos analizados muestran una identidad fragmentada, emociones negativas recurrentes y una autonomía condicionada por dinámicas algorítmicas. La integración de análisis semántico con reflexión filosófica demuestra el potencial del enfoque RAG para estudiar fenómenos sociotecnológicos contemporáneos.
+
+---
+
+## Tecnologías Utilizadas
+
+- Python
+- Pandas
+- SentenceTransformers
+- Scikit-learn
+- Matplotlib / Seaborn
+- WordCloud
 
 ```python
 import pandas as pd
