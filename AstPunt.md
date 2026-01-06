@@ -1,9 +1,84 @@
-# Algoritmo A* Visual con Pygame
+# Visualizador del Algoritmo A* con Pygame
 
-Implementación visual del algoritmo A* utilizando Pygame.  
-Permite definir un nodo inicio, un nodo fin y obstáculos, mostrando el proceso de búsqueda paso a paso.
+## Descripción del Proyecto
 
-## Código
+Este proyecto implementa y visualiza el algoritmo de búsqueda heurística A* (A-Star) utilizando la librería Pygame. El sistema permite al usuario construir de forma interactiva un entorno en forma de cuadrícula, definir un nodo de inicio, un nodo objetivo y obstáculos, y observar paso a paso cómo el algoritmo A* encuentra el camino óptimo entre dos puntos.
+
+El objetivo principal del proyecto es didáctico, facilitando la comprensión del funcionamiento interno del algoritmo A*, incluyendo el cálculo de los valores g, h y f, así como el uso de listas abiertas y cerradas.
+
+## Características Principales
+
+- Representación gráfica de una cuadrícula bidimensional.
+- Selección interactiva del nodo inicial y nodo final.
+- Creación de obstáculos mediante interacción con el mouse.
+- Implementación completa del algoritmo A*.
+- Movimiento en 8 direcciones (horizontal, vertical y diagonal).
+- Uso de heurística Manhattan.
+- Visualización en tiempo real de nodos explorados y camino final.
+- Impresión en consola de la lista abierta, lista cerrada y costos del camino.
+
+## Tecnologías Utilizadas
+
+- Python 3
+- Pygame
+- Estructuras de datos: PriorityQueue, listas y conjuntos
+
+## Funcionamiento del Algoritmo A*
+
+El algoritmo A* utiliza la función de evaluación:
+
+f(n) = g(n) + h(n)
+
+Donde:
+- g(n) representa el costo desde el nodo inicial hasta el nodo actual.
+- h(n) representa la heurística estimada desde el nodo actual hasta el nodo objetivo.
+- f(n) determina la prioridad de exploración del nodo.
+
+El algoritmo mantiene dos estructuras principales:
+- Lista abierta: contiene los nodos pendientes por evaluar.
+- Lista cerrada: contiene los nodos ya evaluados.
+
+El proceso continúa hasta encontrar el nodo objetivo o hasta que no existan más nodos por explorar.
+
+## Interacción con el Usuario
+
+### Controles del Mouse
+
+- Click izquierdo:
+  - Primer click: establecer nodo inicial.
+  - Segundo click: establecer nodo final.
+  - Clicks posteriores: crear paredes u obstáculos.
+- Click derecho:
+  - Restablecer un nodo a su estado original.
+
+### Controles del Teclado
+
+- Barra espaciadora: ejecuta el algoritmo A*.
+- Tecla R: reinicia la cuadrícula.
+- Tecla Q: cierra la aplicación.
+
+## Estructura del Proyecto
+
+.
+├── main.py
+└── README.md
+
+## Salida en Consola
+
+Durante la ejecución, el programa muestra en consola:
+- Nodos en la lista abierta.
+- Nodos en la lista cerrada.
+- Información detallada del camino final, incluyendo valores g, h y f.
+- Costo total del camino encontrado.
+
+## Propósito Académico
+
+Este proyecto fue desarrollado con fines académicos para el estudio de algoritmos de búsqueda informada en Inteligencia Artificial, permitiendo visualizar de manera clara el funcionamiento del algoritmo A* y analizar su comportamiento ante distintos escenarios.
+
+## Autor
+
+Proyecto desarrollado con fines educativos para la visualización y comprensión del algoritmo A*.
+
 
 ```python
 import pygame
