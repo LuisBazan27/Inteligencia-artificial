@@ -1,16 +1,160 @@
-# Proyecto 4 – Tutor Inteligente de Algoritmos con LLM
+# Tutor Inteligente de Algoritmos con Fine-Tuning y LoRA
 
-Este proyecto implementa un tutor inteligente especializado en algoritmos utilizando modelos de lenguaje.
-Incluye dos partes:
-- Uso del modelo entrenado como tutor interactivo
-- Entrenamiento del modelo mediante fine-tuning con LoRA
+## Introducción
+
+Este proyecto consiste en el desarrollo de un tutor inteligente de algoritmos basado en un modelo de lenguaje de gran escala, ajustado mediante fine-tuning supervisado con LoRA (Low-Rank Adaptation). El sistema está diseñado para responder preguntas sobre algoritmos de forma clara, estructurada y paso a paso, simulando el comportamiento de un tutor académico.
+
+El proyecto abarca dos componentes principales: el entrenamiento del modelo a partir de un dataset especializado y la implementación de un sistema interactivo en consola que permite al usuario formular preguntas y recibir explicaciones detalladas.
 
 ---
 
-## Tutor interactivo de algoritmos
+## Objetivo del Proyecto
 
-Este script carga un modelo previamente entrenado y permite interactuar con él desde la terminal,
-respondiendo preguntas sobre algoritmos de forma clara y paso a paso.
+Desarrollar un modelo de lenguaje especializado que sea capaz de explicar conceptos de algoritmos de manera didáctica, proporcionar respuestas paso a paso, adaptarse a un contexto educativo y funcionar como un tutor interactivo en tiempo real.
+
+---
+
+## Modelo Base
+
+Se utilizó como modelo base el modelo TinyLlama/TinyLlama-1.1B-Chat-v1.0. Este modelo fue seleccionado por su bajo costo computacional y su compatibilidad con técnicas de fine-tuning ligero, permitiendo su ajuste sin requerir grandes recursos de hardware.
+
+---
+
+## Dataset
+
+El entrenamiento se realizó utilizando un dataset propio en formato JSONL ubicado en:
+
+data/processed/tutor_algoritmos_clean.jsonl
+
+Cada registro del dataset contiene:
+- instruction: pregunta o consigna relacionada con algoritmos.
+- output: respuesta esperada redactada con enfoque pedagógico.
+
+El dataset fue previamente limpiado y normalizado para asegurar coherencia semántica y calidad en las respuestas generadas.
+
+---
+
+## Metodología de Entrenamiento
+
+### Fine-Tuning con LoRA
+
+Para el ajuste del modelo se empleó la técnica LoRA (Low-Rank Adaptation), lo que permitió reducir el número de parámetros entrenables, disminuir el consumo de memoria y mantener congelado el modelo base, adaptando únicamente capas específicas.
+
+Configuración de LoRA:
+- Rank (r): 8  
+- Alpha: 16  
+- Dropout: 0.05  
+- Tipo de tarea: Causal Language Modeling  
+
+---
+
+### Formato de los Ejemplos
+
+Los ejemplos de entrenamiento se estructuraron de la siguiente forma:
+
+### Instrucción:
+[pregunta]
+
+### Respuesta:
+[respuesta del tutor]
+
+Este formato facilita que el modelo aprenda la separación entre la pregunta del estudiante y la explicación del tutor.
+
+---
+
+### Parámetros de Entrenamiento
+
+- Batch size por dispositivo: 1  
+- Gradient accumulation steps: 4  
+- Número de épocas: 3  
+- Learning rate: 2e-4  
+- Precisión: float32  
+- Estrategia de guardado: por época  
+
+El entrenamiento se realizó mediante la clase SFTTrainer de la librería TRL.
+
+---
+
+## Arquitectura del Sistema
+
+El sistema se divide en dos flujos principales:
+
+Entrenamiento del modelo:
+- Carga del dataset.
+- Tokenización de los ejemplos.
+- Aplicación de LoRA sobre el modelo base.
+- Entrenamiento supervisado.
+- Guardado del modelo ajustado.
+
+Ejecución del tutor:
+- Carga del modelo entrenado.
+- Recepción de preguntas por consola.
+- Generación de respuestas con muestreo controlado.
+- Presentación de la respuesta al usuario.
+
+---
+
+## Sistema de Inferencia
+
+El tutor funciona como una aplicación interactiva en consola. Para cada pregunta del usuario, el sistema construye un prompt con rol explícito de tutor experto, tokeniza la entrada, genera la respuesta usando el modelo entrenado y devuelve una explicación clara y estructurada.
+
+Parámetros de generación:
+- Máximo de tokens nuevos: 300  
+- Sampling activado  
+- Temperature: 0.7  
+- Top-p: 0.9  
+
+Estos parámetros permiten un equilibrio entre coherencia y variabilidad en las respuestas.
+
+---
+
+## Ejecución del Proyecto
+
+Para iniciar el tutor, ejecutar:
+
+python main.py
+
+El usuario puede escribir preguntas libremente sobre algoritmos. Para finalizar la sesión, escribir:
+
+salir
+
+---
+
+## Resultados Esperados
+
+El sistema es capaz de explicar algoritmos paso a paso, utilizar un lenguaje claro y pedagógico, mantener coherencia temática en sus respuestas y adaptarse tanto a preguntas conceptuales como procedimentales. El comportamiento del modelo refleja el conocimiento adquirido durante el fine-tuning con el dataset especializado.
+
+---
+
+## Tecnologías Utilizadas
+
+- Python  
+- PyTorch  
+- Hugging Face Transformers  
+- Datasets  
+- TRL (SFTTrainer)  
+- PEFT (LoRA)  
+
+---
+
+## Estructura del Proyecto
+
+/data  
+  /processed  
+    tutor_algoritmos_clean.jsonl  
+/models  
+  /tutor_algoritmos  
+/scripts  
+  train.py  
+  main.py  
+README.md  
+
+---
+
+## Conclusión
+
+Este proyecto demuestra que es posible construir un tutor inteligente especializado mediante fine-tuning ligero con LoRA, obteniendo un modelo capaz de brindar explicaciones claras y estructuradas sobre algoritmos. La combinación de un dataset curado, un modelo eficiente y una estrategia de entrenamiento adecuada permite desarrollar asistentes educativos funcionales sin requerir grandes infraestructuras computacionales.
+
 
 ```python
 import torch
